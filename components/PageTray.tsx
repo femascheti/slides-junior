@@ -19,22 +19,39 @@ const SortablePageThumbnail: React.FC<PageThumbnailProps> = ({ page, isActive, o
         setNodeRef,
         transform,
         transition,
+        isDragging,
     } = useSortable({ id: page.id });
 
     const style = {
         transform: CSS.Transform.toString(transform),
         transition,
     };
-    
+
     return (
         <div ref={setNodeRef} style={style} {...attributes} className="relative">
-            <div {...listeners} onClick={onSelect}
-                className={`w-24 h-24 bg-gray-100 rounded-lg cursor-pointer flex items-center justify-center border-2 transition-all
-                ${isActive ? 'border-custom-blue scale-105' : 'border-gray-300 hover:border-custom-blue'}`}>
-                 <div className="w-16 h-16 bg-gray-200 rounded"></div>
+            <div {...listeners}
+                className={`w-32 h-32 rounded-xl cursor-grab active:cursor-grabbing flex items-center justify-center border-4 transition-all shadow-md
+                ${isActive ? 'border-custom-blue scale-110 shadow-lg bg-blue-50' : 'border-gray-300 hover:border-custom-blue bg-gray-100'}
+                ${isDragging ? 'opacity-50' : ''}`}>
+                <div
+                    onClick={onSelect}
+                    onKeyDown={(e) => {
+                        if (e.key === 'Enter' || e.key === ' ') {
+                            onSelect();
+                        }
+                    }}
+                    role="button"
+                    tabIndex={0}
+                    className="w-24 h-24 bg-gradient-to-br from-gray-200 to-gray-300 rounded-lg cursor-pointer flex items-center justify-center text-center text-xs font-bold text-gray-500"
+                >
+                    Slide
+                </div>
             </div>
-            <button onClick={onDelete} className="absolute -top-2 -right-2 bg-custom-light-red text-white w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold shadow-md hover:bg-custom-dark-red transition-colors">
-                X
+            <button onClick={(e) => {
+                e.stopPropagation();
+                onDelete();
+            }} className="absolute -top-3 -right-3 bg-custom-light-red text-white w-8 h-8 rounded-full flex items-center justify-center text-lg font-bold shadow-lg hover:bg-custom-dark-red hover:scale-110 transition-all">
+                ✕
             </button>
         </div>
     );
@@ -79,7 +96,7 @@ const PageTray: React.FC<PageTrayProps> = ({ pages, activePageId, onSelectPage, 
                     </div>
                 </SortableContext>
             </DndContext>
-            <button onClick={onAddPage} className="w-24 h-24 bg-gray-50 text-custom-blue rounded-lg border-2 border-dashed border-gray-300 hover:border-custom-blue hover:text-custom-blue transition-all flex items-center justify-center text-4xl">
+            <button onClick={onAddPage} className="w-32 h-32 bg-gradient-to-br from-custom-light-green to-custom-dark-green text-white rounded-xl border-4 border-dashed border-custom-dark-green hover:border-white hover:shadow-lg transition-all flex items-center justify-center text-5xl font-bold shadow-md hover:scale-105">
                 +
             </button>
           </div>

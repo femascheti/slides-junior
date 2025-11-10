@@ -40,7 +40,7 @@ const CanvasToolbar: React.FC<CanvasToolbarProps> = ({
   return (
     <div className="flex items-center space-x-4 p-2 border-b border-custom-blue bg-white rounded-t-lg">
       <div className="flex items-center space-x-1 border-r border-gray-200 pr-3">
-        <ToolButton 
+        <ToolButton
             label="Caneta"
             icon={<PencilIcon />}
             isActive={tool === Tool.PEN}
@@ -51,6 +51,12 @@ const CanvasToolbar: React.FC<CanvasToolbarProps> = ({
             icon={<TypeIcon />}
             isActive={tool === Tool.TEXT}
             onClick={() => setTool(Tool.TEXT)}
+        />
+        <ToolButton
+            label="Borracha"
+            icon={<EraserIcon />}
+            isActive={tool === Tool.ERASER}
+            onClick={() => setTool(Tool.ERASER)}
         />
       </div>
       
@@ -96,6 +102,13 @@ const PencilIcon = () => (
 const TypeIcon = () => (
     <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 7V6h16v1M7 12h10M12 7v10" />
+    </svg>
+);
+
+const EraserIcon = () => (
+    <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14.348 14.849c-.469.469-1.229.469-1.697 0l-2.83-3.045a1.20 1.20 0 0 0-1.697 0l-5.831 6.956a2.12 2.12 0 0 0 0 2.997 2.118 2.118 0 0 0 2.996 0l5.831-6.956a1.197 1.197 0 0 1 1.697 0l2.83 3.045a1.201 1.201 0 0 0 1.698 0 1.202 1.202 0 0 0 0-1.697l-2.827-3.045z" />
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 3l18 18" />
     </svg>
 );
 
