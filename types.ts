@@ -29,4 +29,5 @@ export interface Page {
 export enum Tool {
     PEN = 'PEN',
     TEXT = 'TEXT',
+    ERASER = 'ERASER',
 }
